@@ -1,6 +1,10 @@
 from django.db import models
 
 # Create your models here.
+class user(models.Model):
+    pass 
+
+
 class tasks(models.Model):
     task_name = models.CharField(max_length=20)
     complete = models.BooleanField(default=False)

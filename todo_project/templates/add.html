@@ -3,11 +3,11 @@
 {% block title %}Add Task{% endblock  %}
 
 {% block content %}
-  Hiii!!
+  <h1>Add Tasks {{user}}</h1>
   <form action="" method="post">
     {% csrf_token %}
-
-    {{ form.as_p }}
+    {{notification}}
+    {{form}}
+    <button type="submit">Add</button>
   </form>
-  <button type="submit">Add</button>
-{% endblock %}
+{% endblock  %}

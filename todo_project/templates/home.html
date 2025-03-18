@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+  <h1>hii! {{user}}</h1>
+  <h2>Tasks ToDo</h2>
+  {{notification}}
+  <ol>
+    {% for task in tasks %}
+    <li>
+      {{complete}}
+      {{task.task_name}}-{{task.task_description}}
+      {{deadline}}
+    </li>
+    {% endfor %}
+  </ol>
+
+  
+  <h2>Tasks Completed</h2>
+  <!-- {{tasks_c}} -->
+   <!--basically variable in which i will started tasks completed-->
+   <a href="{% url 'add_task' %}">Add New Task</a>
+{% endblock %}

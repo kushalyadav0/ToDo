@@ -12,8 +12,19 @@
       {{complete}}
       {{task.task_name}}-{{task.task_description}}
       {{deadline}}
+      <a href="{% url 'edit' task.pk %}">Edit</a>
+      <a href="{% url 'delete' task.pk %}">Delete</a> <!--we use url patterns'name here-->
+      <a href="{% url 'edit' task.pk %}">Completed</a>
     </li>
     {% endfor %}
+
+    <h2>Tasks Completed<h2>
+      <ol>
+        {% for task_c in tasks_c %}
+        
+        {% endfor %}
+      </ol>
+      
   </ol>
 
   

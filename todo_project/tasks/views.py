@@ -19,10 +19,10 @@ def add_task(request):
             return redirect('home', ) # in redirect we use view and in render we use any_template.html
     else:
         form = task_form()
-    return render(request, 'add.html', {'form':form, 'notification':notification})
+    return render(request, 'add.html', {'form':form})
 
 def edit_task(request,pk):
-    task = get_object_or_404(Tasks.objacts.all(), pk=pk)
+    task = get_object_or_404(Tasks.objects.all(), pk=pk)
     if request.method == 'POST':
         form = task_form(request.POST, instance=task)
         if form.is_valid():
@@ -31,13 +31,16 @@ def edit_task(request,pk):
             return redirect('home')
         
     else:
-        form = task_form()
+        form = task_form(request.post)
     
-    return render(request,'edit.html', )
+    return render(request,'edit.html', {'form':form,'task':task})
     
-
-def delete_task(request):
-    pass
+def delete_task(request, pk):
+    task = get_object_or_404(Tasks,pk=pk)
+    if request.method=='POST':
+        task.delete()
+        return redirect('home')
+    return render(request, 'delete.html', {'task':task})
 
 def completed(request):
     pass

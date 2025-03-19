@@ -5,6 +5,7 @@
   <h1>Edit Task</h1>
   <p> {{notification}} </p>
   <form action="" method="post">
+    {% csrf_token %}
     {{form}}
     <button type="submit">Save</button>
   </form>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Tasks
 from .forms import task_form
@@ -16,16 +16,25 @@ def add_task(request):
         if form.is_valid():
             notification = messages.success(request,"you've added task successfully")
             form.save()
-            return redirect('home')
+            return redirect('home', ) # in redirect we use view and in render we use any_template.html
     else:
         form = task_form()
     return render(request, 'add.html', {'form':form, 'notification':notification})
 
-def task(request):
-    pass
-
-def edit_task(request):
-    pass
+def edit_task(request,pk):
+    task = get_object_or_404(Tasks.objacts.all(), pk=pk)
+    if request.method == 'POST':
+        form = task_form(request.POST, instance=task)
+        if form.is_valid():
+            messages.success(request,'succesfully edited')
+            form.save()
+            return redirect('home')
+        
+    else:
+        form = task_form()
+    
+    return render(request,'edit.html', )
+    
 
 def delete_task(request):
     pass

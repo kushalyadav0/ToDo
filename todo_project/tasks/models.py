@@ -7,7 +7,7 @@ class Tasks(models.Model):
     complete = models.BooleanField(default=False)
     task_description = models.TextField(max_length=100,)
     date_added = models.DateField(auto_now_add=True)
-    deadline = models.TimeField(blank=True, null=True)
+    deadline = models.TimeField(blank=True, null=True, )
 
     def __str__(self):
         return self.task_name

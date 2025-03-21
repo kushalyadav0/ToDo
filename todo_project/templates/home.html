@@ -9,12 +9,26 @@
   <ol>
     {% for task in tasks %}
     <li>
-      {{complete}}
+      <input type="checkbox" name="check" id="check" value="{{task_form.complete}}">
       {{task.task_name}}-{{task.task_description}}
-      {{deadline}}
-      <a href="{% url 'edit' task.pk %}">Edit</a>
+      <p></p>
+      {% comment %}
+
+      <label for="deadline">Deadline: </label>
+      <input type="datetime" name="deadline" id="deadline" value="{{Tasks.deadline|time:'h:i:s'}}">
+
+              
+      {% endcomment %}
+      <p></p>
+      <a href="{% url 'edit' task.pk %}">Edit</a> 
+      <p></p>
       <a href="{% url 'delete' task.pk %}">Delete</a> <!--we use url patterns'name here-->
-      <a href="{% url 'edit' task.pk %}">Completed</a>
+      <p></p>
+      {% comment %}
+      <a href="{% url 'complete' task.pk %}">Completed</a>
+      {% endcomment %}
+     <!--  -->
+      
     </li>
     {% endfor %}
 

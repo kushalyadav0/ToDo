@@ -8,5 +8,6 @@ urlpatterns = [
     path('add/', views.add_task, name='add_task'),
     path('edit/<int:pk>/',views.edit_task, name='edit'),
     path('delete/<int:pk>/',views.delete_task, name='delete'),
+    # path('checkbox')
     
 ]

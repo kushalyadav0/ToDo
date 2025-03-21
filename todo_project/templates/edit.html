@@ -4,7 +4,7 @@
 {% block content %}
   <h1>Edit Task</h1>
   <p> {{notification}} </p>
-  <form action="" method="post">
+  <form action="" method="POST">
     {% csrf_token %}
     {{form}}
     <button type="submit">Save</button>

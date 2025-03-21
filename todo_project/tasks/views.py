@@ -31,7 +31,7 @@ def edit_task(request,pk):
             return redirect('home')
         
     else:
-        form = task_form(request.post)
+        form = task_form(request.POST)
     
     return render(request,'edit.html', {'form':form,'task':task})
     
@@ -42,5 +42,8 @@ def delete_task(request, pk):
         return redirect('home')
     return render(request, 'delete.html', {'task':task})
 
-def completed(request):
-    pass
+def completed(request,pk):
+    task = get_object_or_404(Tasks,pk=pk)
+    complete = True
+    task_form.save
+    return redirect('home')

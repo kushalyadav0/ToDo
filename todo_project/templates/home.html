@@ -9,8 +9,8 @@
   <ol>
     {% for task in tasks %}
     <li>
-      <input type="checkbox" name="check" id="check" value="{{task_form.complete}}">
-      {{task.task_name}}-{{task.task_description}}
+      {{task.date_added}}
+      {{task.task_name}}-{{task.task_description}} {{task.deadline}} {{task.complete}}
       <p></p>
       {% comment %}
 
@@ -27,7 +27,7 @@
       {% comment %}
       <a href="{% url 'complete' task.pk %}">Completed</a>
       {% endcomment %}
-     <!--  -->
+     
       
     </li>
     {% endfor %}
@@ -40,10 +40,7 @@
       </ol>
       
   </ol>
-
-  
-  <h2>Tasks Completed</h2>
-  <!-- {{tasks_c}} -->
    <!--basically variable in which i will started tasks completed-->
+
    <a href="{% url 'add_task' %}">Add New Task</a>
 {% endblock %}

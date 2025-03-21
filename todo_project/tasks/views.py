@@ -31,7 +31,7 @@ def edit_task(request,pk):
             return redirect('home')
         
     else:
-        form = task_form(request.POST)
+        form = task_form(request.GET)
     
     return render(request,'edit.html', {'form':form,'task':task})
     

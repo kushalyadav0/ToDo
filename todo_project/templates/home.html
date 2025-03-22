@@ -10,7 +10,9 @@
     {% for task in tasks %}
     <li>
       {{task.date_added}}
-      {{task.task_name}}-{{task.task_description}} {{task.deadline}} {{task.complete}}
+      {{task.task_name}}-{{task.task_description}} <br> 
+      Deadline: {{task.deadline}} <br> 
+      Completed: {{task.complete}}
       <p></p>
       {% comment %}
 

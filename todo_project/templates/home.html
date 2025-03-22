@@ -9,28 +9,26 @@
   <ol>
     {% for task in tasks %}
     <li>
-      {{task.date_added}}
+      Date Added: {{task.date_added}} <br>
       {{task.task_name}}-{{task.task_description}} <br> 
       Deadline: {{task.deadline}} <br> 
       Completed: {{task.complete}}
-      <p></p>
+
       {% comment %}
 
       <label for="deadline">Deadline: </label>
       <input type="datetime" name="deadline" id="deadline" value="{{Tasks.deadline|time:'h:i:s'}}">
 
-              
       {% endcomment %}
-      <p></p>
+
       <a href="{% url 'edit' task.pk %}">Edit</a> 
-      <p></p>
+      <br>
       <a href="{% url 'delete' task.pk %}">Delete</a> <!--we use url patterns'name here-->
-      <p></p>
+      <br>
       {% comment %}
       <a href="{% url 'complete' task.pk %}">Completed</a>
       {% endcomment %}
      
-      
     </li>
     {% endfor %}
 

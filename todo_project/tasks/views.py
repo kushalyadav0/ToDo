@@ -5,7 +5,8 @@ from .forms import task_form
 # for authentication
 from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_protect
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
  
 
 # Create your views here.
@@ -20,12 +21,29 @@ def SignUp(request):
     else:
         form = UserCreationForm()
     return render(request, 'registeration/signup.html', {'form':form})
-def login():
-    pass
+"""
+def login(request):
+    if request.method =='POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username, password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+    return render(request, 'login.html')
+
+def logout(request):
+    logout(request)
+    return redirect('login')
+    
+"""
+
+@login_required
 def home(request):
     tasks = Tasks.objects.all() # get all items one by one
     return render(request, 'home.html', {'tasks':tasks}, )
 
+@login_required
 def add_task(request):
     form = task_form()
     if request.method =='POST':
@@ -38,6 +56,7 @@ def add_task(request):
         form = task_form()
     return render(request, 'add.html', {'form':form})
 
+@login_required
 def edit_task(request,pk):
     task = get_object_or_404(Tasks.objects.all(), pk=pk)
     if request.method == 'POST':
@@ -52,6 +71,7 @@ def edit_task(request,pk):
     
     return render(request,'edit.html', {'form':form,'task':task})
     
+@login_required
 def delete_task(request, pk):
     task = get_object_or_404(Tasks,pk=pk)
     if request.method=='POST': 
@@ -59,6 +79,7 @@ def delete_task(request, pk):
         return redirect('home')
     return render(request, 'delete.html', {'task':task})
 
+@login_required
 def completed(request,pk):
     task = get_object_or_404(Tasks,pk=pk)
     if request.method =='POST':

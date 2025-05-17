@@ -128,6 +128,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_REDIRRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout'
+
 # for csrf protection
 SESSION_ENGINE  = 'django.contrib.sessions.backends.db'
 CSRF_COOKIE_HTTPONLY = True

@@ -2,9 +2,26 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Tasks
 from .forms import task_form
-
+# for authentication
+from django.contrib.auth.forms import UserCreationForm
+from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth import login, logout
+ 
 
 # Create your views here.
+# authentication views 
+def SignUp(request):
+    if request.method =='POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request,user)
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registeration/signup.html', {'form':form})
+def login():
+    pass
 def home(request):
     tasks = Tasks.objects.all() # get all items one by one
     return render(request, 'home.html', {'tasks':tasks}, )
@@ -37,13 +54,17 @@ def edit_task(request,pk):
     
 def delete_task(request, pk):
     task = get_object_or_404(Tasks,pk=pk)
-    if request.method=='POST':
+    if request.method=='POST': 
         task.delete()
         return redirect('home')
     return render(request, 'delete.html', {'task':task})
 
 def completed(request,pk):
     task = get_object_or_404(Tasks,pk=pk)
+    if request.method =='POST':
+        task_c = task
+        return(render(request,'home.html'))
+
     complete = True
     task_form.save
     return redirect('home')

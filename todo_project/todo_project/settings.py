@@ -123,3 +123,12 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# new 
+LOGIN_REDIRRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
+# for csrf protection
+SESSION_ENGINE  = 'django.contrib.sessions.backends.db'
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SECURE = False  # Set to True in production with HTTPS

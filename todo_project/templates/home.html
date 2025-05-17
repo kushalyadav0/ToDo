@@ -3,16 +3,26 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
+
+{% if user.is_authenticated  %}
+
+
   <h1>hii! {{user}}</h1>
-  <h2>Tasks ToDo</h2>
+  <h2>Tasks ToDo</h2>  
+  
+  <form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Log Out</button>
+  </form>
+
   {{notification}}
   <ol>
     {% for task in tasks %}
     <li>
-      Date Added: {{task.date_added}} <br>
-      {{task.task_name}}-{{task.task_description}} <br> 
-      Deadline: {{task.deadline}} <br> 
-      Completed: {{task.complete}}
+      Date Added: {{task.date_added}} <br><br>
+      {{task.task_name}} - {{task.task_description}} <br><br> 
+      Deadline: {{task.deadline}} <br><br>
+      Completed: {{task.complete}} <br><br>
 
       {% comment %}
 
@@ -21,14 +31,23 @@
 
       {% endcomment %}
 
-      <a href="{% url 'edit' task.pk %}">Edit</a> 
+      <div>
+        <a href="{% url 'edit' task.pk %}">Edit</a> 
+      </div>
+
       <br>
-      <a href="{% url 'delete' task.pk %}">Delete</a> <!--we use url patterns'name here-->
+      <div>
+        <a href="{% url 'delete' task.pk %}">Delete</a> <!--we use url patterns'name here-->
+      </div>
       <br>
       {% comment %}
-      <a href="{% url 'complete' task.pk %}">Completed</a>
+        
+      <div>
+        <a href="{% url 'complete' task.pk %}">Completed</a>
+      </div>
+
       {% endcomment %}
-     
+
     </li>
     {% endfor %}
 
@@ -43,4 +62,23 @@
    <!--basically variable in which i will started tasks completed-->
 
    <a href="{% url 'add_task' %}">Add New Task</a>
+
+  
+{% else %}
+
+<h2>Hii!!! New User.</h2><br>
+<h3>Please Login...</h3><br>
+
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">LogIn</button>
+</form>
+
+{% comment %}
+  login
+{% endcomment %}
+  
+
+{% endif %}
+
 {% endblock %}

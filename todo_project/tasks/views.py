@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Tasks
-from .forms import task_form
+from .models import * # all
+from .forms import * # all
 # for authentication
 from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_protect
@@ -11,16 +11,16 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 # authentication views 
-def SignUp(request):
+def signup(request):
     if request.method =='POST':
-        form = UserCreationForm(request.POST)
+        form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request,user)
-            return redirect('login')
+            return redirect('home')
     else:
-        form = UserCreationForm()
-    return render(request, 'registeration/signup.html', {'form':form})
+        form = SignupForm()
+    return render(request, 'registration/signup.html', {'form':form})
 
 
 @login_required
@@ -45,7 +45,7 @@ def add_task(request):
 def edit_task(request,pk):
     task = get_object_or_404(Tasks.objects.all(), pk=pk)
     if request.method == 'POST':
-        form = task_form(request.POST, instance=task)
+        form = task_form(request.POST, instance=task.pk)
         if form.is_valid():
             messages.success(request,'succesfully edited')
             form.save()

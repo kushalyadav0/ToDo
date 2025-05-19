@@ -21,22 +21,7 @@ def SignUp(request):
     else:
         form = UserCreationForm()
     return render(request, 'registeration/signup.html', {'form':form})
-"""
-def login(request):
-    if request.method =='POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username, password)
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-    return render(request, 'login.html')
 
-def logout(request):
-    logout(request)
-    return redirect('login')
-    
-"""
 
 @login_required
 def home(request):

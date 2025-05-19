@@ -16,7 +16,7 @@ urlpatterns = [
     path('edit/<int:pk>/',views.edit_task, name='edit'),
     path('delete/<int:pk>/',views.delete_task, name='delete'),
     path('complete/<int:pk>/', views.completed, name = 'complete'),
-    path('login/',views.login, name='login')
+    # path('login/',views.login, name='login')
     # path('checkbox')
     
 ]

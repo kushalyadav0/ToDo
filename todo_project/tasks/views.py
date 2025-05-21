@@ -25,8 +25,10 @@ def signup(request):
 
 @login_required
 def home(request):
-    tasks = Tasks.objects.all() # get all items one by one
-    return render(request, 'home.html', {'tasks':tasks}, )
+    if User.is_authenticated():
+        tasks = Tasks.objects.all() # get all items one by one
+        return render(request, 'home.html', {'tasks':tasks}, )
+    return redirect('signup')
 
 @login_required
 def add_task(request):

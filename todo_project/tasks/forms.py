@@ -5,7 +5,8 @@ from .models import Tasks
 class task_form(forms.ModelForm):
     class Meta:
         model = Tasks
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ['user',]
 
         widgets = {
             'deadline':DateTimePickerInput()

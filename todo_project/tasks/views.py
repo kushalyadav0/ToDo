@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
 from .models import * # all
 from .forms import * # all
 # for authentication
@@ -24,32 +23,35 @@ def signup(request):
 
 
 @login_required
+@csrf_protect
 def home(request):
-    if User.is_authenticated():
-        tasks = Tasks.objects.all() # get all items one by one
+    if User.is_authenticated:
+        tasks = Tasks.objects.filter(user=request.user) # get all items one by one
         return render(request, 'home.html', {'tasks':tasks}, )
     return redirect('signup')
 
+@csrf_protect
 @login_required
 def add_task(request):
     form = task_form()
     if request.method =='POST':
         form = task_form(request.POST)
-        if form.is_valid():
-            notification = messages.success(request,"you've added task successfully")
-            form.save()
+        if form.is_valid(): 
+            task = form.save(commit=False)
+            task.user = request.user
+            task.save()
             return redirect('home', ) # in redirect we use view and in render we use any_template.html
     else:
         form = task_form()
     return render(request, 'add.html', {'form':form})
-
+    
+    
 @login_required
 def edit_task(request,pk):
-    task = get_object_or_404(Tasks.objects.all(), pk=pk)
+    task = get_object_or_404(Tasks, pk=pk, user = request.user)
     if request.method == 'POST':
-        form = task_form(request.POST, instance=task.pk)
+        form = task_form(request.POST, instance=task)
         if form.is_valid():
-            messages.success(request,'succesfully edited')
             form.save()
             return redirect('home')
         
@@ -60,7 +62,7 @@ def edit_task(request,pk):
     
 @login_required
 def delete_task(request, pk):
-    task = get_object_or_404(Tasks,pk=pk)
+    task = get_object_or_404(Tasks,pk=pk, user = request.user)
     if request.method=='POST': 
         task.delete()
         return redirect('home')

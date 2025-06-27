@@ -28,7 +28,8 @@ def home(request):
     if User.is_authenticated:
         tasks = Tasks.objects.filter(user=request.user) # get all items one by one
         return render(request, 'home.html', {'tasks':tasks}, )
-    return redirect('signup')
+    else:
+        return redirect('login')
 
 @csrf_protect
 @login_required

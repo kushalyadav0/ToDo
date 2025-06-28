@@ -5,14 +5,10 @@ from .models import Tasks
 class task_form(forms.ModelForm):
     class Meta:
         model = Tasks
-        # fields = '__all__'
         exclude = ['user',]
-
         widgets = {
             'deadline':DateTimePickerInput()
         }
-
-
 
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm

@@ -2,9 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import * # all
 from .forms import * # all
 # for authentication
-from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_protect
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
  
 
@@ -27,7 +26,7 @@ def signup(request):
 def home(request):
     if User.is_authenticated:
         tasks = Tasks.objects.filter(user=request.user) # get all items one by one
-        return render(request, 'home.html', {'tasks':tasks}, )
+        return render(request, 'home.html', {'tasks':tasks,})
     else:
         return redirect('login')
 

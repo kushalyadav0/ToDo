@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+
+<section class='bg-white transition-all'>
+  <main class="min-h-screen dark:bg-VeryDarkBlue bg-VeryLightGray relative">
+     <div>
+        <img
+          src='{% static "bg-desktop-dark.jpg" %}'
+          alt="desktop-bg"
+          class="hidden w-full h-64 object-cover object-left-top dark:md:block"
+        />
+        <img
+          src='{% static "bg-desktop-light.jpg" %}'
+          alt="desktop-bg"
+          class="hidden w-full h-64 object-cover object-left-top dark:hidden md:block"
+        />
+        <img
+          src='{% static "bg-mobile-dark.jpg" %}'
+          alt="mobile-bg"
+          class="w-full h-64 object-cover object-left-top hidden md:hidden dark:block dark:md:hidden"
+        />
+        <img
+          src='{% static "bg-mobile-light.jpg" %}'
+          alt="mobile-bg"
+          class="w-full h-64 object-cover object-left-top dark:hidden md:hidden dark:md:hidden"
+        />
+    </div>
+    
+    <div>
+      {% if user.is_authenticated  %}
+
+      <h1 class=''>hii! {{user}}</h1>
+      <h2>Tasks ToDo</h2>    
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Log Out</button>
+      </form>
+    
+      <div id="logout_div" class="bg-amber-700">
+        <a href="{% url 'logout' %}">logout</a>
+      </div>
+
+  
+  <ol>
+    {% for task in tasks %}
+    <li class=''>
+      Date Added: {{task.date_added}} <br>
+      {{task.task_name}} - {{task.task_description}} <br>
+      Deadline: {{task.deadline}} <br>
+      Completed: {{task.complete}} <br>
+
+      <div>
+        <a href="{% url 'edit' task.pk %}">Edit</a> 
+      </div>
+
+      <div>
+        <a href="{% url 'delete' task.pk %}">Delete</a> <!--we use url patterns'name here-->
+      </div>
+
+    </li>
+    {% endfor %}
+      
+  </ol>
+   <a href="{% url 'add_task' %}">Add New Task</a>
+
+      </div>
+
+      <div
+        class="flex flex-col items-center justify-center relative -top-40 -my-16 md:-my-14"
+      >
+        <header
+          class="w-full flex items-center justify-between px-10 md:w-6/12 lg:w-5/12"
+        >
+          <h1
+            class="text-white font-JosefinSans uppercase text-2xl tracking-widest font-semibold md:text-4xl"
+          >
+            todo
+          </h1>
+          <div>
+            <img
+              src='{% static "icon-moon.svg" %}'
+              class="block dark:hidden theme-toggler cursor-pointer"
+              data-theme-toggler
+              alt=""
+            />
+            <img
+              src='{% static "icon-sun.svg" %}'
+              class="hidden dark:block theme-toggler cursor-pointer"
+              data-theme-toggler
+              alt=""
+            />
+          </div>
+        </header>
+      </div>
+
+
+{% else %}
+
+<h2>Hii!!! New User.</h2><br>
+<h3>Please Login...</h3><br>
+
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">LogIn</button>
+</form>
+
+
+{% endif %}
+  </main>
+</section>
+
+{% endblock %}

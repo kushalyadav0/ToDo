@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}Home{% endblock %}
 
 {% block content %}
+
 <body class="bg-VeryLightGray dark:bg-VeryDarkBlue font-JosefinSans transition duration-300">
 
   <!-- Background Image (Just once at the top) -->
@@ -18,7 +18,7 @@
 
   <!-- Header -->
   <div class="flex justify-between items-center px-6 md:px-0 md:w-6/12 lg:w-5/12 mx-auto -mt-28 z-10 relative">
-    <h1 class="text-white uppercase tracking-[0.3em] text-3xl font-bold">Todo</h1>
+    <h1 class="text-white uppercase tracking-[0.3em] text-3xl font-bold">Heyy!! <span class='font-extrabold'>{{ user }}</span> Todo</h1>
     <button id="themeToggle">
       <img src="{% static 'icon-moon.svg' %}" alt="Toggle theme" class="block dark:hidden w-6 h-6" />
       <img src="{% static 'icon-sun.svg' %}" alt="Toggle theme" class="hidden dark:block w-6 h-6" />
@@ -94,10 +94,9 @@
 
   <!-- Theme Toggle Script -->
   <script>
-    const toggleBtn = document.getElementById("themeToggle");
-    toggleBtn.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-    });
+
   </script>
+
+  <script src='{% static "js/home_script.js" %}'></script>
 </body>
 {% endblock %}

@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import * # all
 from .forms import * # all
 # for authentication
-from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
  
@@ -22,7 +21,6 @@ def signup(request):
 
 
 @login_required
-@csrf_protect
 def home(request):
     if User.is_authenticated:
         tasks = Tasks.objects.filter(user=request.user) # get all items one by one
@@ -30,7 +28,7 @@ def home(request):
     else:
         return redirect('login')
 
-@csrf_protect
+
 @login_required
 def add_task(request):
     form = task_form()

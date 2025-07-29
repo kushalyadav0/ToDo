@@ -24,7 +24,8 @@ def signup(request):
 def home(request):
     if User.is_authenticated:
         tasks = Tasks.objects.filter(user=request.user) # get all items one by one
-        return render(request, 'home.html', {'tasks':tasks,})
+        print(request.user)
+        return render(request, 'home.html', {'tasks':tasks,'user':request.user})
     else:
         return redirect('login')
 

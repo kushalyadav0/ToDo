@@ -1,17 +1,29 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
+{% load static tailwind_tags %}
 
-{% block title %}login{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block content %}
-<h2>Log In</h2>
-
-<form action="" method="post">
-    {% csrf_token %}<!-- for security concerns -->
-
-    {{ form.as_p }} <!--to display form contents-->
-
-    <button type="submit">Log In</button>
-
-</form>
-<p>Don't have account? <a href="{% url "signup" %}">Sign Up</a></p>
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-purple-100 to-pink-200">
+    <div class="max-w-md w-full p-8 bg-white bg-opacity-90 rounded-xl shadow-lg">
+        <h2 class="text-center mb-6 text-gray-800 font-bold text-2xl">Welcome Back</h2>
+        <form action="" method="post" class="flex flex-col gap-5">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="flex flex-col">
+                    <label for="{{ field.id_for_label }}" class="mb-1 font-medium text-gray-700">{{ field.label }}</label>
+                    {{ field|add_class:"border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" }}
+                    {% if field.errors %}
+                        <div class="text-red-500 text-sm mt-1">{{ field.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="mt-2 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors">Log In</button>
+        </form>
+        <p class="text-center mt-5 text-gray-600">Don't have an account?
+            <a href="{% url 'signup' %}" class="text-blue-600 hover:underline font-medium">Sign Up</a>
+        </p>
+    </div>
+</div>
 {% endblock %}
